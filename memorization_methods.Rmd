@@ -1,0 +1,32 @@
+---
+title: "Untitled"
+author: "Tomas E. Tecce"
+date: "March 28, 2016"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+# Set RNG seed for reproducibility
+set.seed(729375)
+
+# Split the data into training and testing subsets (90-10)
+outcomes <- c('churn', 'appetency', 'upselling')
+vars <- setdiff(colnames(dTrainAll), c(outcomes, 'rgroup'))
+
+# Identify which features are categorical / numerical variables
+catVars <- vars[sapply(dTrainAll[,vars], class) %in%
+                    c('factor','character')]
+numericVars <- vars[sapply(dTrainAll[,vars], class) %in%
+                        c('numeric', 'integer')]
+
+# Remove unneeded objects from the workspace
+rm(list=c('d', 'churn', 'appetency', 'upsellling'))
+
+# Choose the outcome to model
+outcome <- 'churn'
+pos <- '1' # Which outcome is considered positive
+```
